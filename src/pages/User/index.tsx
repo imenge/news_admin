@@ -25,8 +25,8 @@ const UserList = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Button type="primary">详情</Button>
-          <Button type="primary" danger>
+          <Button type="primary" size="small">详情</Button>
+          <Button type="primary" size="small" danger>
             冻结
           </Button>
         </Space>
@@ -74,7 +74,7 @@ const UserList = () => {
 
   return (
     <div>
-      <Form layout="vertical">
+      <Form layout="vertical" size="small">
         <Row gutter={30}>
           <Col className="gutter-row" span={7}>
             <Form.Item name="username" label="用户名">
@@ -111,6 +111,7 @@ const UserList = () => {
       </Form>
 
       <Table
+        size="small"
         columns={columns}
         dataSource={tableData}
         pagination={{ pageSize: formData.pageSize, total }}
