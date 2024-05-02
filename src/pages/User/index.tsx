@@ -1,16 +1,9 @@
 import React from 'react'
-import { Space, Table, Tag, Button } from 'antd'
+import { Space, Table, Tag, Button, Form, Input, Row, Col } from 'antd'
 import type { TableProps } from 'antd'
 
 const UserList = () => {
-  interface DataType {
-    key: string
-    name: string
-    age: number
-    address: string
-    tags: string[]
-  }
-  const columns: TableProps<DataType>['columns'] = [
+  const columns: TableProps<any>['columns'] = [
     {
       title: '用户名',
       dataIndex: 'name',
@@ -28,26 +21,6 @@ const UserList = () => {
       key: 'address'
     },
     {
-      title: '标记',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
-        <>
-          {tags.map(tag => {
-            let color = tag.length > 5 ? 'geekblue' : 'green'
-            if (tag === 'loser') {
-              color = 'volcano'
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            )
-          })}
-        </>
-      )
-    },
-    {
       title: '操作',
       key: 'action',
       render: (_, record) => (
@@ -61,7 +34,7 @@ const UserList = () => {
     }
   ]
 
-  const data: DataType[] = [
+  const tableData = [
     {
       key: '1',
       name: 'John Brown',
@@ -85,7 +58,65 @@ const UserList = () => {
     }
   ]
 
-  return <Table columns={columns} dataSource={data} pagination={{ pageSize: 2 }} />
+  const formData = {
+    username: '',
+    page: 1,
+    pageSize: 10
+  }
+  const total = 3
+
+  const onSearch = () => {
+    console.log('onSearch')
+  }
+  const onReset = () => {
+    console.log('onReset')
+  }
+
+  return (
+    <div>
+      <Form layout="vertical">
+        <Row gutter={30}>
+          <Col className="gutter-row" span={7}>
+            <Form.Item name="username" label="用户名">
+              <Input placeholder="请输入用户名" value={formData.username} />
+            </Form.Item>
+          </Col>
+          <Col className="gutter-row" span={7}>
+            <Form.Item name="username" label="用户名">
+              <Input placeholder="请输入用户名" value={formData.username} />
+            </Form.Item>
+          </Col>
+          <Col className="gutter-row" span={7}>
+            <Form.Item name="username" label="用户名">
+              <Input placeholder="请输入用户名" value={formData.username} />
+            </Form.Item>
+          </Col>
+          <Col className="gutter-row" span={7}>
+            <Form.Item name="username" label="用户名">
+              <Input placeholder="请输入用户名" value={formData.username} />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Form.Item>
+          <Space>
+            <Button type="primary" htmlType="submit" onClick={onSearch}>
+              搜索
+            </Button>
+            <Button htmlType="button" onClick={onReset}>
+              重置
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+
+      <Table
+        columns={columns}
+        dataSource={tableData}
+        pagination={{ pageSize: formData.pageSize, total }}
+      />
+    </div>
+  )
 }
 
 export default UserList
